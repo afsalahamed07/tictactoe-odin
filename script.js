@@ -1,12 +1,14 @@
-const gameBoard = (() => {
-  const boardArray = [
-    [" ", " ", " "],
-    [" ", " ", " "],
-    [" ", " ", " "],
-  ];
+const boardDOM = document.querySelector("#game-board");
 
-  return { boardArray };
-})();
+boardDOM.addEventListener("click", (e) => {
+  if (e.target.classList.contains("cell")) {
+    const row = e.target.parentNode;
+    const rowIndex = Array.from(row.parentNode.children).indexOf(row);
+    const cellIndex = Array.from(row.children).indexOf(e.target);
+    gameBoard.play(rowIndex, cellIndex);
+    renderBoard();
+  }
+});
 
 function renderBoard() {
   const board = gameBoard.boardArray;
@@ -20,8 +22,22 @@ function renderBoard() {
 
     for (let j = 0; j < board[i].length; j++) {
       const cell = document.createElement("div");
-      cell.classList.add("cell", "border", "border-black", "size-32");
-      cell.textContent = board[i][j];
+      cell.classList.add(
+        "cell",
+        "flex",
+        "flex-col",
+        "justify-center",
+        "border",
+        "border-black",
+        "size-32",
+        "p-4",
+        "text-center",
+        "font-bold",
+        "text-2xl",
+      );
+      const marker = document.createElement("p");
+      marker.textContent = board[i][j];
+      cell.appendChild(marker);
       row.appendChild(cell);
     }
   }
