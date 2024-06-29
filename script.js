@@ -1,12 +1,31 @@
+let gameBoard = createBoard();
+
 const boardDOM = document.querySelector("#game-board");
+const messageDOM = document.querySelector("#message");
+const restartButton = document.querySelector("#restart-button");
 
 boardDOM.addEventListener("click", (e) => {
   if (e.target.classList.contains("cell")) {
+    if (e.target.children[0].textContent !== " ") return;
+
+    if (player1.won || player2.won ) return;
+
     const row = e.target.parentNode;
     const rowIndex = Array.from(row.parentNode.children).indexOf(row);
     const cellIndex = Array.from(row.children).indexOf(e.target);
-    gameBoard.play(rowIndex, cellIndex);
+    let status = gameBoard.play(rowIndex, cellIndex);
     renderBoard();
+
+    if (status) {
+      if (player1.won) {
+        messageDOM.textContent = "Player 1 won!";
+      } else if (player2.won) {
+        messageDOM.textContent = "Player 2 won!";
+      }
+    }
+    else if (gameBoard.getMoves() === 9) {
+      messageDOM.textContent = "It's a draw!";
+    }
   }
 });
 
@@ -34,6 +53,7 @@ function renderBoard() {
         "text-center",
         "font-bold",
         "text-2xl",
+        "hover:cursor-pointer"
       );
       const marker = document.createElement("p");
       marker.textContent = board[i][j];
@@ -44,3 +64,11 @@ function renderBoard() {
 }
 
 renderBoard();
+
+restartButton.addEventListener("click", () => {
+  gameBoard = createBoard();
+  player1 = createPlayer("Player 1", true);
+  player2 = createPlayer("Player 2");
+  messageDOM.textContent = "";
+  renderBoard();
+});
