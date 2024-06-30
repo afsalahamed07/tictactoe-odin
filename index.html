@@ -9,23 +9,28 @@
         <title>Tic Tac Toe</title>
     </head>
     <body>
-        <div class="container mx-auto p-4 font-mono">
-            <div
-                id="game-board"
-                class="flex flex-col gap-4 justify-center"
-            ></div>
+        <div
+            class="container mx-auto p-4 font-mono flex flex-col place-items-center h-screen align"
+        >
+            <div class="m-auto">
+                <div class="text-4xl font-bold text-center m-1 p-4">Tic Tac Toe</div>
+                <div
+                    id="game-board"
+                    class="flex flex-col gap-4 place-items-center"
+                ></div>
 
-            <div
-                class="container mx-auto p-4 font-mono flex flex-col place-items-center gap-4"
-            >
-                <div id="message" class="text-center text-2xl"></div>
-                <button
-                    id="restart-button"
-                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                <div
+                    class="p-4 font-mono flex flex-col place-items-center gap-4"
                 >
-                    RESTART
-                </button>
-            </div>
+                    <div id="message" class="text-center text-2xl"></div>
+                    <button
+                        id="restart-button"
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                        RESTART
+                    </button>
+                </div>
+            </div >
         </div>
 
         <script src="player.js"></script>
